@@ -31,11 +31,11 @@ public class Hospital {
         reserved.publishAfterCommit();
     }
 
-    @PreRemove
-    public void onPreRemove() {
-        Canceled canceled = new Canceled(this);
-        canceled.publishAfterCommit();
-    }
+    // @PreRemove
+    // public void onPreRemove() {
+    //     Canceled canceled = new Canceled(this);
+    //     canceled.publishAfterCommit();
+    // }
 
     public static HospitalRepository repository() {
         HospitalRepository hospitalRepository = HospitalApplication.applicationContext.getBean(
@@ -46,28 +46,12 @@ public class Hospital {
 
     //<<< Clean Arch / Port Method
     public static void book(Called called) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
         Hospital hospital = new Hospital();
+        hospital.setId(called.getId());
+        hospital.setHospitalId("HOSPITAL_"+String.valueOf(called.getId()));
+        hospital.setHospitalName("HOSPITAL_NAME_"+String.valueOf(called.getId()));
+        hospital.setAddress("Seoul");
         repository().save(hospital);
-
-        Reserved reserved = new Reserved(hospital);
-        reserved.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(called.get???()).ifPresent(hospital->{
-            
-            hospital // do something
-            repository().save(hospital);
-
-            Reserved reserved = new Reserved(hospital);
-            reserved.publishAfterCommit();
-
-         });
-        */
 
     }
 

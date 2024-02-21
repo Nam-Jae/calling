@@ -32,13 +32,7 @@ public class Dispatch {
     @PostPersist
     public void onPostPersist() {
         Dispatched dispatched = new Dispatched(this);
-        dispatched.publishAfterCommit();
-    }
-
-    @PreRemove
-    public void onPreRemove() {
-        DispatchCanceled dispatchCanceled = new DispatchCanceled(this);
-        dispatchCanceled.publishAfterCommit();
+        dispatched.publishAfterCommit();  
     }
 
     public static DispatchRepository repository() {
@@ -50,28 +44,9 @@ public class Dispatch {
 
     //<<< Clean Arch / Port Method
     public static void getHelp(Called called) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
         Dispatch dispatch = new Dispatch();
+        dispatch.setId(called.getId());
         repository().save(dispatch);
-
-        Dispatched dispatched = new Dispatched(dispatch);
-        dispatched.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(called.get???()).ifPresent(dispatch->{
-            
-            dispatch // do something
-            repository().save(dispatch);
-
-            Dispatched dispatched = new Dispatched(dispatch);
-            dispatched.publishAfterCommit();
-
-         });
-        */
 
     }
 

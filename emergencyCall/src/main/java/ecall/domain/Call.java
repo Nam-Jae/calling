@@ -33,6 +33,18 @@ public class Call {
         called.publishAfterCommit();
     }
 
+    @PrePersist
+    public void onPrePersist(){
+        ecall.external.Dispatch dispatch = 
+            EmergencyCallApplication.applicationContext.getBean(ecall.external.DispatchService.class)
+            .getDispatch(Long.valueOf(getId()));
+
+        if(dispatch.getRemains() < 1){
+            throw new RuntimeException("No more car in garage");
+        }
+
+    }
+
     @PreRemove
     public void onPreRemove() {
         CallCanceled callCanceled = new CallCanceled(this);

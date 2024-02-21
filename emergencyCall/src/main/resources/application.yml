@@ -81,4 +81,6 @@ spring:
           destination: ecall
           contentType: application/json
 
-
+api:
+  url:
+    dispatch: dispatch:8080
